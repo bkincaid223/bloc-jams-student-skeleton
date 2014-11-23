@@ -1,8 +1,3 @@
-//require('./landing');
- //require('./album');
- //require('./collection');
- //require('./profile');
- 
- angular.module('BlocJams', []).controller('Landing.controller', ['$scope', function($scope) {
-$scope.subText = "Turn the music up!";
- }]);
+require('./landing');
+require('./collection');
+require('./album');
