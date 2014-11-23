@@ -3,6 +3,7 @@ $('.hero-content h3').click(function(){
     var subText = $(this).text();
     $(this).text(subText + "!");
 });
+});
     var onHoverAction = function(event) {
      console.log('Hover action triggered.');
      $(this).animate({'margin-top': '10px'});
