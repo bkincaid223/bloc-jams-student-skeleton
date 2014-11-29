@@ -1,9 +1,10 @@
-$(document).ready(function(){
-$('.hero-content h3').click(function(){
-    var subText = $(this).text();
-    $(this).text(subText + "!");
-});
-    var onHoverAction = function(event) {
+$(document).ready(function() { 
+    $('.hero-content h3').click(function(){
+      var subText = $(this).text();
+       $(this).text(subText + "!");
+    });
+ 
+   var onHoverAction = function(event) {
      console.log('Hover action triggered.');
      $(this).animate({'margin-top': '10px'});
    };
@@ -13,5 +14,5 @@ $('.hero-content h3').click(function(){
      $(this).animate({'margin-top': '0px'});
    };
  
-   $('.selling-points .point').hover(onHoverAction, offHoverAction);
-});
+    $('.selling-points .point').hover(onHoverAction, offHoverAction);
+  });

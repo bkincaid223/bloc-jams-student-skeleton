@@ -227,20 +227,39 @@ var createSongRow = function(songNumber, songName, songLength) {
 });
 
 ;require.register("scripts/app", function(exports, require, module) {
-require('./landing');
-require('./collection');
-require('./album');
+//require('./landing');
+ //require('./album');
+ //require('./collection');
+ //require('./profile');
+ 
+ angular.module('BlocJams', []).controller('Landing.controller', ['$scope', function($scope) {
+  $scope.subText = "Turn the music up!";
+     
+     $scope.subTextClicked = function() {
+     $scope.subText += '!';
+   };
+     
+      $scope.albumURLs = [
+     '/images/album-placeholders/album-1.jpg',
+     '/images/album-placeholders/album-2.jpg',
+     '/images/album-placeholders/album-3.jpg',
+     '/images/album-placeholders/album-4.jpg',
+     '/images/album-placeholders/album-5.jpg',
+     '/images/album-placeholders/album-6.jpg',
+     '/images/album-placeholders/album-7.jpg',
+     '/images/album-placeholders/album-8.jpg',
+     '/images/album-placeholders/album-9.jpg',
+   ];
+ }]);
 });
 
 ;require.register("scripts/collection", function(exports, require, module) {
 var buildAlbumThumbnail = function() {
     var template =
         '<div class="collection-album-container col-md-2">'
-      + '  <div class="collection-album-image-container">'
-      + '    <img src="/images/album-placeholder.png"/>'
-      + '  </div>'
-    
-      + '  <div class="caption album-collection-info">'
++ '  <div class="collection-album-image-container">'
+   + '    <img src="/images/album-placeholder.png"/>'
+   + '  </div>'      + '  <div class="caption album-collection-info">'
       + '    <p>'
       + '      <a class="album-name" href="/album.html"> Album Name </a>'
       + '      <br/>'
@@ -253,25 +272,6 @@ var buildAlbumThumbnail = function() {
       + '</div>';
  
    return $(template);
- };
-
-var updateCollectionView = function() {
-   var $collection = $(".collection-container .row");
-   $collection.empty();
- 
-   for (var i = 0; i < 33; i++) {
-     var $newThumbnail = buildAlbumThumbnail();
-     $collection.append($newThumbnail);
-   }
-    
-    var onHover = function(event) {
-        $(this).append(buildAlbumOverlay("/album.html"));
-    };
-    var offHover = function(event) {
-        $(this).find('.collection-album-image-overlay').remove();
-    };
-    
-    $collection.find('.collection-album-image-container').hover(onHover, offHover);
  };
 
 var buildAlbumOverlay = function(albumURL) {
@@ -290,26 +290,45 @@ var buildAlbumOverlay = function(albumURL) {
       ;
     return $(template);
   };
+ 
+var updateCollectionView = function() {
+   var $collection = $(".collection-container .row");
+   $collection.empty();
+ 
+   for (var i = 0; i < 33; i++) {
+    var $newThumbnail = buildAlbumThumbnail();
+    $collection.append($newThumbnail);
+  }
+
+  var onHover = function(event) {
+    $(this).append(buildAlbumOverlay("/album.html"));
+  };
+
+  var offHover = function(event) {
+    $(this).find('.collection-album-image-overlay').remove();
+  };
+
+  $collection.find('.collection-album-image-container').hover(onHover, offHover);
+};
 
 if (document.URL.match(/\/collection.html/)) {
    // Wait until the HTML is fully processed.
    $(document).ready(function() {
-      
- updateCollectionView();
+//Your code here.
+            updateCollectionView();
 
-       
    });
- }
-      
+ };
 });
 
 ;require.register("scripts/landing", function(exports, require, module) {
-$(document).ready(function(){
-$('.hero-content h3').click(function(){
-    var subText = $(this).text();
-    $(this).text(subText + "!");
-});
-    var onHoverAction = function(event) {
+$(document).ready(function() { 
+    $('.hero-content h3').click(function(){
+      var subText = $(this).text();
+       $(this).text(subText + "!");
+    });
+ 
+   var onHoverAction = function(event) {
      console.log('Hover action triggered.');
      $(this).animate({'margin-top': '10px'});
    };
@@ -319,8 +338,47 @@ $('.hero-content h3').click(function(){
      $(this).animate({'margin-top': '0px'});
    };
  
-   $('.selling-points .point').hover(onHoverAction, offHoverAction);
+    $('.selling-points .point').hover(onHoverAction, offHoverAction);
+  });
 });
+
+;require.register("scripts/profile", function(exports, require, module) {
+// holds the name of our tab button container for selection later in the function
+ var tabsContainer = ".user-profile-tabs-container"
+ var selectTabHandler = function(event) {
+ };
+
+var tabsContainer = ".user-profile-tabs-container"
+ var selectTabHandler = function(event) {
+   $tab = $(this);
+   $(tabsContainer + " li").removeClass('active');
+   $tab.parent().addClass('active');
+   selectedTabName = $tab.attr('href');
+   console.log(selectedTabName);
+   $(".tab-pane").addClass('hidden');
+   $(selectedTabName).removeClass('hidden');
+   event.preventDefault();
+ };
+
+var tabsContainer = ".user-profile-tabs-container"
+ var selectTabHandler = function(event) {
+   $tab = $(this);
+   $(tabsContainer + " li").removeClass('active');
+   $tab.parent().addClass('active');
+   selectedTabName = $tab.attr('href');
+   console.log(selectedTabName);
+   $(".tab-pane").addClass('hidden');
+   $(selectedTabName).removeClass('hidden');
+   event.preventDefault();
+ };
+ 
+ if (document.URL.match(/\/profile.html/)) {
+   $(document).ready(function() {
+     var $tabs = $(tabsContainer + " a");
+     $tabs.click(selectTabHandler);
+     $tabs[0].click();
+   });
+ }
 });
 
 ;
