@@ -281,9 +281,9 @@ if (document.URL.match(/\/album.html/)) {
 
 ;require.register("scripts/app", function(exports, require, module) {
 require('./landing');
- require('./album');
- require('./collection');
- 
+require('./album');
+require('./collection');
+require("./profile");
  
  
 });
@@ -393,9 +393,9 @@ var tabsContainer = ".user-profile-tabs-container"
    $(".tab-pane").addClass('hidden');
    $(selectedTabName).removeClass('hidden');
    event.preventDefault();
- };
-
-var tabsContainer = ".user-profile-tabs-container"
+ }
+ 
+ var tabsContainer = ".user-profile-tabs-container"
  var selectTabHandler = function(event) {
    $tab = $(this);
    $(tabsContainer + " li").removeClass('active');

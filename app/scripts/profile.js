@@ -13,9 +13,9 @@ var tabsContainer = ".user-profile-tabs-container"
    $(".tab-pane").addClass('hidden');
    $(selectedTabName).removeClass('hidden');
    event.preventDefault();
- };
-
-var tabsContainer = ".user-profile-tabs-container"
+ }
+ 
+ var tabsContainer = ".user-profile-tabs-container"
  var selectTabHandler = function(event) {
    $tab = $(this);
    $(tabsContainer + " li").removeClass('active');
