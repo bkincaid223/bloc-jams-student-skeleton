@@ -121,68 +121,19 @@ require.register("scripts/album", function(exports, require, module) {
        { name: 'Can you hear me now?', length: '3:14' },
        { name: 'Wrong phone number', length: '2:15'}
      ]
- };
-  
-var currentlyPlayingSong = null;
-var createSongRow = function(songNumber, songName, songLength) {
+ }; 
+
+ var createSongRow = function(songNumber, songName, songLength) {
    var template =
        '<tr>'
-     + '  <td class="song-number col-md-1" data-song-number="' + songNumber + '">' + songNumber + '</td>'
+     + '  <td class="col-md-1">' + songNumber + '</td>'
      + '  <td class="col-md-9">' + songName + '</td>'
      + '  <td class="col-md-2">' + songLength + '</td>'
      + '</tr>'
      ;
  
-// Instead of returning the row immediately, we'll attach hover
-  // functionality to it first.
-   var $row = $(template);
-
-// Change from a song number to play button when the song isn't playing and we hover over the row.
-
-   var onHover = function(event) {
-     var songNumberCell = $(this).find('.song-number');
-     var songNumber = songNumberCell.data('song-number');
-      if (songNumber !== currentlyPlayingSong) {
-      songNumberCell.html('<a class="album-song-button"><i class="fa fa-play"></i></a>');
-    }
-   };
- 
-// Change from a play button to song number when the song isn't playing and we hover off the row.
-
-    var offHover = function(event) {
-     var songNumberCell = $(this).find('.song-number');
-     var songNumber = songNumberCell.data('song-number');
-     if (songNumber !== currentlyPlayingSong) {
-      songNumberCell.html(songNumber);
-    }
-   };
- 
-    // Toggle the play, pause, and song number based on the button clicked.
-   var clickHandler = function(event) {
-     var songNumber = $(this).data('song-number');
- 
-   if (currentlyPlayingSong !== null) {
-       // Revert to song number for currently playing song because user started playing new song.
-       var currentlyPlayingCell = $('.song-number[data-song-number="' + currentlyPlayingSong + '"]');
-       currentlyPlayingCell.html(currentlyPlayingSong);
-     }
- 
-     if (currentlyPlayingSong !== songNumber) {
-       // Switch from Play -> Pause button to indicate new song is playing.
-       $(this).html('<a class="album-song-button"><i class="fa fa-pause"></i></a>');
-       currentlyPlayingSong = songNumber;
-     }
-     else if (currentlyPlayingSong === songNumber) {
-       // Switch from Pause -> Play button to pause currently playing song.
-       $(this).html('<a class="album-song-button"><i class="fa fa-play"></i></a>');
-       currentlyPlayingSong = null;
-     }
-   };
-    
-     $row.find('.song-number').click(clickHandler);
-     $row.hover(onHover, offHover);
-     return $row;
-};
+   return $(template);
+ };
 
  var changeAlbumView = function(album) {
    // Update the album title
@@ -213,58 +164,26 @@ var createSongRow = function(songNumber, songName, songLength) {
  
  };
 
-
 // This 'if' condition is used to prevent the jQuery modifications
  // from happening on non-Album view pages.
  //  - Use a regex to validate that the url has "/album" in its path.
  if (document.URL.match(/\/album.html/)) {
    // Wait until the HTML is fully processed.
    $(document).ready(function() {
-     
-    changeAlbumView(albumPicasso);
- });
+       
+   changeAlbumView(albumPicasso);
+
+   });
  }
 });
 
 ;require.register("scripts/app", function(exports, require, module) {
-//require('./landing');
- //require('./album');
- //require('./collection');
- //require('./profile');
+require('./landing');
+ require('./album');
+ require('./collection');
  
- blocJams = angular.module('BlocJams', ['ui.router']);
-
-blocJams.config(['$stateProvider', '$locationProvider', function($stateProvider, $locationProvider) {
-   $locationProvider.html5Mode(true);
  
-   $stateProvider.state('landing', {
-     url: '/',
-     controller: 'Landing.controller',
-     templateUrl: '/templates/landing.html'
-   });
- }]);
-
- blocJams.controller('Landing.controller', ['$scope', function($scope) {
-  $scope.subText = "Turn the music up!";
-     
-  $scope.subTextClicked = function() {
-  $scope.subText += '!';
-   };
-
-     $scope.albumURLs = [
-     '/images/album-placeholders/album-1.jpg',
-     '/images/album-placeholders/album-2.jpg',
-     '/images/album-placeholders/album-3.jpg',
-     '/images/album-placeholders/album-4.jpg',
-     '/images/album-placeholders/album-5.jpg',
-     '/images/album-placeholders/album-6.jpg',
-     '/images/album-placeholders/album-7.jpg',
-     '/images/album-placeholders/album-8.jpg',
-     '/images/album-placeholders/album-9.jpg',
-   ];
- }]);
-
-
+ 
 });
 
 ;require.register("scripts/collection", function(exports, require, module) {
