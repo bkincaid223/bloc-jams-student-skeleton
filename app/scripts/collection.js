@@ -1,9 +1,12 @@
 var buildAlbumThumbnail = function() {
     var template =
         '<div class="collection-album-container col-md-2">'
+ + '  <div class="collection-album-image-container">'
 + '  <div class="collection-album-image-container">'
    + '    <img src="/images/album-placeholder.png"/>'
-   + '  </div>'     
+   + '  </div>'
+    
+    + '  </div>'
     + '  <div class="caption album-collection-info">'
       + '    <p>'
       + '      <a class="album-name" href="/album.html"> Album Name </a>'
@@ -19,7 +22,7 @@ var buildAlbumThumbnail = function() {
    return $(template);
  };
 
-var buildAlbumOverlay = function(albumURL) {
+ var buildAlbumOverlay = function(albumURL) {
     var template =
         '<div class="collection-album-image-overlay">'
       + '  <div class="collection-overlay-content">'
@@ -35,32 +38,34 @@ var buildAlbumOverlay = function(albumURL) {
       ;
     return $(template);
   };
- 
+
 var updateCollectionView = function() {
    var $collection = $(".collection-container .row");
    $collection.empty();
  
    for (var i = 0; i < 33; i++) {
-    var $newThumbnail = buildAlbumThumbnail();
-    $collection.append($newThumbnail);
-  }
-
-  var onHover = function(event) {
-    $(this).append(buildAlbumOverlay("/album.html"));
-  };
-
-  var offHover = function(event) {
+     var $newThumbnail = buildAlbumThumbnail();
+     $collection.append($newThumbnail);
+   }
+     var onHover = function(event) {
+     $(this).append(buildAlbumOverlay("/album.html"));
+   };
+    
+    var offHover = function(event) {
     $(this).find('.collection-album-image-overlay').remove();
   };
+    
+$collection.find('.collection-album-image-container').hover(onHover);
 
-  $collection.find('.collection-album-image-container').hover(onHover, offHover);
-};
+ };
+
 
 if (document.URL.match(/\/collection.html/)) {
-   // Wait until the HTML is fully processed.
-   $(document).ready(function() {
-//Your code here.
-            updateCollectionView();
+  // Wait until the HTML is fully processed.
+  $(document).ready(function() {
+    // Your code goes here.
+          
+    updateCollectionView();
 
-   });
- };
+  });
+}
