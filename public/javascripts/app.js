@@ -91,7 +91,7 @@
   globals.require.brunch = true;
 })();
 require.register("scripts/album", function(exports, require, module) {
- // Example Album
+// Example Album
  var albumPicasso = {
    name: 'The Colors',
    artist: 'Pablo Picasso',
@@ -121,10 +121,10 @@ require.register("scripts/album", function(exports, require, module) {
        { name: 'Can you hear me now?', length: '3:14' },
        { name: 'Wrong phone number', length: '2:15'}
      ]
- }; 
+ };
   
-  var currentlyPlayingSong = null;
-  var createSongRow = function(songNumber, songName, songLength) {
+var currentlyPlayingSong = null;
+var createSongRow = function(songNumber, songName, songLength) {
    var template =
        '<tr>'
      + '  <td class="song-number col-md-1" data-song-number="' + songNumber + '">' + songNumber + '</td>'
@@ -133,35 +133,35 @@ require.register("scripts/album", function(exports, require, module) {
      + '</tr>'
      ;
  
-    // Instead of returning the row immediately, we'll attach hover
+// Instead of returning the row immediately, we'll attach hover
   // functionality to it first.
    var $row = $(template);
- 
 
 // Change from a song number to play button when the song isn't playing and we hover over the row.
+
    var onHover = function(event) {
      var songNumberCell = $(this).find('.song-number');
      var songNumber = songNumberCell.data('song-number');
-    if (songNumber !== currentlyPlayingSong) {
+      if (songNumber !== currentlyPlayingSong) {
       songNumberCell.html('<a class="album-song-button"><i class="fa fa-play"></i></a>');
-    }   
+    }
    };
  
 // Change from a play button to song number when the song isn't playing and we hover off the row.
+
     var offHover = function(event) {
-    var songNumberCell = $(this).find('.song-number');
-    var songNumber = songNumberCell.data('song-number');
-if (songNumber !== currentlyPlayingSong) {
+     var songNumberCell = $(this).find('.song-number');
+     var songNumber = songNumberCell.data('song-number');
+     if (songNumber !== currentlyPlayingSong) {
       songNumberCell.html(songNumber);
     }
    };
  
-    
-    // Toggle the play, pause, and song number based on which play/pause button we clicked on.
+    // Toggle the play, pause, and song number based on the button clicked.
    var clickHandler = function(event) {
      var songNumber = $(this).data('song-number');
-       
-       if (currentlyPlayingSong !== null) {
+ 
+   if (currentlyPlayingSong !== null) {
        // Revert to song number for currently playing song because user started playing new song.
        var currentlyPlayingCell = $('.song-number[data-song-number="' + currentlyPlayingSong + '"]');
        currentlyPlayingCell.html(currentlyPlayingSong);
@@ -179,12 +179,12 @@ if (songNumber !== currentlyPlayingSong) {
      }
    };
     
-   $row.find('.song-number').click(clickHandler);
-   $row.hover(onHover, offHover);
-   return $row;
- };
+     $row.find('.song-number').click(clickHandler);
+     $row.hover(onHover, offHover);
+     return $row;
+};
 
-var changeAlbumView = function(album) {
+ var changeAlbumView = function(album) {
    // Update the album title
    var $albumTitle = $('.album-title');
    $albumTitle.text(album.name);
@@ -220,17 +220,79 @@ var changeAlbumView = function(album) {
  if (document.URL.match(/\/album.html/)) {
    // Wait until the HTML is fully processed.
    $(document).ready(function() {
-
- changeAlbumView(albumPicasso);
-
-   });
+     
+    changeAlbumView(albumPicasso);
+       setupSeekBars();
+ });
  }
+
+var updateSeekPercentage = function($seekBar, event) {
+   var barWidth = $seekBar.width();
+   var offsetX = event.pageX - $seekBar.offset().left;
+ 
+   var offsetXPercent = (offsetX  / barWidth) * 100;
+   offsetXPercent = Math.max(0, offsetXPercent);
+   offsetXPercent = Math.min(100, offsetXPercent);
+ 
+   var percentageString = offsetXPercent + '%';
+   $seekBar.find('.fill').width(percentageString);
+   $seekBar.find('.thumb').css({left: percentageString});
+ }
+
+var setupSeekBars = function() {
+ 
+   $seekBars = $('.player-bar .seek-bar');
+   $seekBars.click(function(event) {
+     updateSeekPercentage($(this), event);
+   });
+ 
+ $seekBars.find('.thumb').mousedown(function(event){
+    var $seekBar = $(this).parent();
+     
+     $seekBar.addClass('no-animate');
+ 
+    $(document).bind('mousemove.thumb', function(event){
+      updateSeekPercentage($seekBar, event);
+    });
+ 
+    //cleanup
+    $(document).bind('mouseup.thumb', function(){
+        $seekBar.removeClass('no-animate');
+        
+      $(document).unbind('mousemove.thumb');
+      $(document).unbind('mouseup.thumb');
+    });
+     
+    });
+ 
+  };
 });
 
 ;require.register("scripts/app", function(exports, require, module) {
-require('./landing');
-  require('./collection');
-  require('./album');
+//require('./landing');
+ //require('./album');
+ //require('./collection');
+ //require('./profile');
+ 
+ angular.module('BlocJams', []).controller('Landing.controller', ['$scope', function($scope) {
+  $scope.subText = "Turn the music up!";
+     
+$scope.subTextClicked = function() {
+     $scope.subText += '!';
+   };
+     
+     $scope.albumURLs = [
+     '/images/album-placeholders/album-1.jpg',
+     '/images/album-placeholders/album-2.jpg',
+     '/images/album-placeholders/album-3.jpg',
+     '/images/album-placeholders/album-4.jpg',
+     '/images/album-placeholders/album-5.jpg',
+     '/images/album-placeholders/album-6.jpg',
+     '/images/album-placeholders/album-7.jpg',
+     '/images/album-placeholders/album-8.jpg',
+     '/images/album-placeholders/album-9.jpg',
+   ];
+ }]);
 });
 
 ;require.register("scripts/collection", function(exports, require, module) {
