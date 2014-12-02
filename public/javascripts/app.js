@@ -265,63 +265,22 @@ var updateSeekPercentage = function($seekBar, event) {
 // This 'if' condition is used to prevent the jQuery modifications
  // from happening on non-Album view pages.
  //  - Use a regex to validate that the url has "/album" in its path.
- 
-if (document.URL.match(/\/album.html/)) {
+ if (document.URL.match(/\/album.html/)) {
    // Wait until the HTML is fully processed.
    $(document).ready(function() {
-       
-   changeAlbumView(albumPicasso)
-       setupSeekBars();
-
+     console.log("album.js")
    });
  }
-
 
 });
 
 ;require.register("scripts/app", function(exports, require, module) {
-//require('./landing');
- //require('./album');
- //require('./collection');
- //require('./profile');
- 
- blocJams = angular.module('BlocJams', ['ui.router']);
-blocJams.config(['$stateProvider', '$locationProvider', function($stateProvider, $locationProvider) {
-   $locationProvider.html5Mode(true);
- 
-   $stateProvider.state('landing', {
-     url: '/',
-     controller: 'Landing.controller',
-     templateUrl: '/templates/landing.html'
-   });
- }]);
- 
- // This is a cleaner way to call the controller than crowding it on the module definition.
- blocJams.controller('Landing.controller', ['$scope', function($scope) {
-  $scope.subText = "Turn the music up!";
-$scope.subTextClicked = function() {
-     $scope.subText += '!';
-   };
-     
-     $scope.albumURLs = [
-     '/images/album-placeholders/album-1.jpg',
-     '/images/album-placeholders/album-2.jpg',
-     '/images/album-placeholders/album-3.jpg',
-     '/images/album-placeholders/album-4.jpg',
-     '/images/album-placeholders/album-5.jpg',
-     '/images/album-placeholders/album-6.jpg',
-     '/images/album-placeholders/album-7.jpg',
-     '/images/album-placeholders/album-8.jpg',
-     '/images/album-placeholders/album-9.jpg',
-   ];
- 
- 
- 
- }]);
+require('./landing');
+require('./collection');
+require('./album');
 
+  console.log("album.js");
 
- 
- 
 });
 
 ;require.register("scripts/collection", function(exports, require, module) {
@@ -330,7 +289,8 @@ var buildAlbumThumbnail = function() {
         '<div class="collection-album-container col-md-2">'
 + '  <div class="collection-album-image-container">'
    + '    <img src="/images/album-placeholder.png"/>'
-   + '  </div>'      + '  <div class="caption album-collection-info">'
+   + '  </div>'     
+    + '  <div class="caption album-collection-info">'
       + '    <p>'
       + '      <a class="album-name" href="/album.html"> Album Name </a>'
       + '      <br/>'
