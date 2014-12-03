@@ -274,11 +274,34 @@ var setupSeekBars = function() {
  //require('./collection');
  //require('./profile');
  
- blocJams = angular.module('BlocJams', ['ui.router']);
+// Example album.
+ var albumPicasso = {
+   name: 'The Colors',
+   artist: 'Pablo Picasso',
+   label: 'Cubism',
+   year: '1881',
+   albumArtUrl: '/images/album-placeholder.png',
+ 
+   songs: [
+       { name: 'Blue', length: '4:26' },
+       { name: 'Green', length: '3:14' },
+       { name: 'Red', length: '5:01' },
+       { name: 'Pink', length: '3:21'},
+       { name: 'Magenta', length: '2:15'}
+     ]
+ };
 
+ blocJams = angular.module('BlocJams', ['ui.router']);
+  console.log("Landing.controller");
 
 blocJams.config(['$stateProvider', '$locationProvider', function($stateProvider, $locationProvider) {
    $locationProvider.html5Mode(true);
+    
+    $stateProvider.state('collection', {
+     url: '/collection',
+     controller: 'Collection.controller',
+     templateUrl: '/templates/collection.html'
+   });
  
    $stateProvider.state('landing', {
      url: '/',
@@ -289,9 +312,9 @@ blocJams.config(['$stateProvider', '$locationProvider', function($stateProvider,
  
  // This is a cleaner way to call the controller than crowding it on the module definition.
  blocJams.controller('Landing.controller', ['$scope', function($scope) {
-  $scope.subText = "Turn the music up!";
-     
-$scope.subTextClicked = function() {
+       $scope.subText = "Turn the music up!";
+
+     $scope.subTextClicked = function() {
      $scope.subText += '!';
    };
      
@@ -307,18 +330,22 @@ $scope.subTextClicked = function() {
      '/images/album-placeholders/album-9.jpg',
    ];
  }]);
+     
+     blocJams.controller('Collection.controller', ['$scope', function($scope) {
+   $scope.albums = [];
+    for (var i = 0; i < 33; i++) {
+     $scope.albums.push(angular.copy(albumPicasso));
+   }
+ }]);
 });
 
 ;require.register("scripts/collection", function(exports, require, module) {
 var buildAlbumThumbnail = function() {
     var template =
         '<div class="collection-album-container col-md-2">'
- + '  <div class="collection-album-image-container">'
 + '  <div class="collection-album-image-container">'
    + '    <img src="/images/album-placeholder.png"/>'
    + '  </div>'
-    
-    + '  </div>'
     + '  <div class="caption album-collection-info">'
       + '    <p>'
       + '      <a class="album-name" href="/album.html"> Album Name </a>'
@@ -334,7 +361,7 @@ var buildAlbumThumbnail = function() {
    return $(template);
  };
 
- var buildAlbumOverlay = function(albumURL) {
+var buildAlbumOverlay = function(albumURL) {
     var template =
         '<div class="collection-album-image-overlay">'
       + '  <div class="collection-overlay-content">'
@@ -351,7 +378,7 @@ var buildAlbumThumbnail = function() {
     return $(template);
   };
 
-var updateCollectionView = function() {
+ var updateCollectionView = function() {
    var $collection = $(".collection-container .row");
    $collection.empty();
  
@@ -359,28 +386,27 @@ var updateCollectionView = function() {
      var $newThumbnail = buildAlbumThumbnail();
      $collection.append($newThumbnail);
    }
+     
      var onHover = function(event) {
      $(this).append(buildAlbumOverlay("/album.html"));
    };
-    
-    var offHover = function(event) {
+     
+      var offHover = function(event) {
     $(this).find('.collection-album-image-overlay').remove();
   };
-    
-$collection.find('.collection-album-image-container').hover(onHover);
+
+  $collection.find('.collection-album-image-container').hover(onHover, offHover);
 
  };
 
-
 if (document.URL.match(/\/collection.html/)) {
-  // Wait until the HTML is fully processed.
-  $(document).ready(function() {
-    // Your code goes here.
-          
-    updateCollectionView();
+   // Wait until the HTML is fully processed.
+   $(document).ready(function() {
+       
+            updateCollectionView();
 
-  });
-}
+   });
+ }
 });
 
 ;require.register("scripts/landing", function(exports, require, module) {
