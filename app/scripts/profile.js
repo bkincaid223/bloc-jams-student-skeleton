@@ -1,4 +1,3 @@
-// holds the name of our tab button container for selection later in the function
  var tabsContainer = ".user-profile-tabs-container"
  var selectTabHandler = function(event) {
  };
