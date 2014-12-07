@@ -105,13 +105,21 @@ $scope.pauseSong = function(song) {
 blocJams.controller('PlayerBar.controller', ['$scope', 'SongPlayer', function($scope, SongPlayer) {
    $scope.songPlayer = SongPlayer;
     
-    $scope.volumeClass = function() {
+     $scope.volumeClass = function() {
      return {
        'fa-volume-off': SongPlayer.volume == 0,
        'fa-volume-down': SongPlayer.volume <= 70 && SongPlayer.volume > 0,
        'fa-volume-up': SongPlayer.volume > 70
      }
    }
+    
+    SongPlayer.onTimeUpdate(function(event, time){
+     $scope.$apply(function(){
+       $scope.playTime = time;
+     });
+   });
+    
+   
  }]);
      
 blocJams.service('SongPlayer', ['$rootScope', function($rootScope) {
@@ -231,7 +239,7 @@ scope: {
         // These values represent the progress into the song/volume bar, and its max value.
        // For now, we're supplying arbitrary initial and max values.
        scope.value = 0;
-       scope.max = 100;
+       scope.max = 200;
       var $seekBar = $(element);
 attributes.$observe('value', function(newValue) {
         scope.value = numberFromValue(newValue, 0);
