@@ -307,10 +307,11 @@ PLAYER BAR CONTAINER
   display: inline-block; }
 
 .player-bar .volume i {
-  width: 40px;
+  width: 20px;
   font-size: 20px;
   display: inline-block;
-  vertical-align: middle; }
+  vertical-align: middle;
+  text-align: left; }
 
 .slider {
   display: inline-block;
