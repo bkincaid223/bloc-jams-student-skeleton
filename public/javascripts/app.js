@@ -685,6 +685,7 @@ $(document).ready(function() {
  
     $('.selling-points .point').hover(onHoverAction, offHoverAction);
   });
+
 });
 
 ;require.register("scripts/profile", function(exports, require, module) {
