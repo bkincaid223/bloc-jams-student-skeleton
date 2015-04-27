@@ -392,51 +392,6 @@ PLAYER BAR CONTAINER
 .no-right-gutter {
   padding-right: 0px; }
 
-.row-container {
-  cursor: pointer;
-  height: 150px;
-  perspective: 600;
-  position: relative;
-  width: 150px;
-}
-.row {
-  height: 100%;
-  position: absolute;
-  transform-style: preserve-3d;
-  transition: all 1s ease-in-out;
-  width: 100%;
-}
-.row:hover {
-  transform: rotateY(180deg);
-}
-.row .side {
-  backface-visibility: hidden;
-  border-radius: 6px;
-  height: 100%;
-  position: absolute;
-  overflow: hidden;
-  width: 100%;
-}
-.row .back {
-  background: #eaeaed;
-  color: #0087cc;
-  line-height: 150px;
-  text-align: center;
-  transform: rotateY(180deg);
-}
-<!-- CSS media query within a stylesheet-->
-<style>
-@media (max-width: 768px) {
-    .facet_sidebar {
-        display: none;
-    }
-}
 
-@media only screen and (min-width: 478px) and (max-width: 600px){
-    body{background: blue;
-    padding: 10px;}
-}
 
-</style>
-    
 /*# sourceMappingURL=app.css.map*/

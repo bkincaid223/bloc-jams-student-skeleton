@@ -15,7 +15,7 @@
      ]
  };
 
-blocJams = angular.module('BlocJams', ['ui.router']);
+blocJams = angular.module('BlocJams', ['ui.router', 'ui.bootstrap']); // added bootstrap to dependency injection
 
 blocJams.config(['$stateProvider', '$locationProvider', function($stateProvider, $locationProvider) {
    $locationProvider.html5Mode(true);
@@ -58,6 +58,7 @@ blocJams.config(['$stateProvider', '$locationProvider', function($stateProvider,
      '/images/album-placeholders/album-8.jpg',
      '/images/album-placeholders/album-9.jpg',
    ];
+   $scope.isCollapsed = false;
  }]);
      
  blocJams.controller('Collection.controller', ['$scope','SongPlayer', function($scope, SongPlayer) {

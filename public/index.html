@@ -2,33 +2,34 @@
  <html ng-app="BlocJams">
   <head>
     <title>Bloc Jams</title>
-      <meta name="viewport" content="width = device-width, initial-scale = 1">
-      <link rel="stylesheet" type="text/css" href="http://yui.yahooapis.com/3.17.1/build/cssreset/cssreset-min.css">
-      
-     <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css">
-     <link rel="stylesheet" type="text/css" href="/stylesheets/app.css">
+    <meta name="viewport" content="width = device-width, initial-scale = 1">
+    <link rel="stylesheet" type="text/css" href="http://yui.yahooapis.com/3.17.1/build/cssreset/cssreset-min.css">
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:400,800,600,700,300' rel='stylesheet' type='text/css'> <!-- Added font -->
+    <link href="//netdna.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet"> 
 
-     <link href="//netdna.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
-      
+    <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="/stylesheets/app.css">
+
     <script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
 
-     <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.15/angular.min.js"></script>
-     <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/angular-ui-router/0.2.10/angular-ui-router.min.js"></script>
-     <script src="//cdnjs.cloudflare.com/ajax/libs/buzz/1.1.0/buzz.min.js"></script>
+    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.15/angular.min.js"></script>
+    <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/angular-ui-router/0.2.10/angular-ui-router.min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/buzz/1.1.0/buzz.min.js"></script>
+    <script src="https://angular-ui.github.io/bootstrap/ui-bootstrap-tpls-0.12.1.min.js"></script> <!-- Added UI-Bootstrap.js so we can use it -->
 
-     <script src="/javascripts/app.js"></script>
+    <script src="/javascripts/app.js"></script>
 
-     <script>
-       require('scripts/app');
-     </script>
- </head>
-
-   <body>
+    <script>
+    require('scripts/app');
+    </script>
+  </head>
+  <body>
+       <!--
        <div class="container"
             .container-fluid(full-width);
         </div>
-       
-    
+      -->
+       <!-- Work on your indentation in this <nav> tag-->
      <nav class="player-header-nav navbar">
        <div class="container">
          <div class='navbar-header'> <!-- Nav Bar -->
@@ -36,27 +37,24 @@
              <img src="/images/blocjams.png">
            </a>
          </div>
-           <div class="container">
-           <ul class="nav navbar-nav navbar-right">
+          <div class="container">
+            <button class="menu-open visible-xs" ng-click="isCollapsed = !isCollapsed">
+              <i ng-class="{'fa fa-arrow-circle-down fa-3x': isCollapsed, 'fa fa-arrow-circle-up fa-3x': !isCollapsed}"></i> 
+            </button>
+           <ul class="nav navbar-nav navbar-right" collapse="isCollapsed">
+            <li><a ui-sref='album'>Playlist</a></li>
             <li><a ui-sref='collection'>Library</a></li>
-               <div class="btn-group" dropdown is-open="status.isopen">
-      <button type="button" class="btn btn-primary dropdown-toggle" dropdown-toggle ng-disabled="disabled">
-        Button dropdown <span class="caret"></span>
-      </button>
-      <ul class="dropdown-menu" role="menu">
-        <li><a href="#">Action</a></li>
-        <li><a href="#">Another action</a></li>
-        <li><a href="#">Something else here</a></li>
-        <li class="divider"></li>
-        <li><a href="#">Separated link</a></li>
-      </ul>
-    </div>
-</div>
-</div>           </ul>
-           </ul>
-       </div>
-     </nav>
+            <li><a ui-sref='profile'>Profile</a></li>
+            <!-- <li> tags are the only direct child elements allowed in a <ul> ; no <div> tags outside of a <li> tag please! -->
+            <!-- <div class="btn-group" dropdown is-open="status.isopen"> 
+              <button type="button" class="btn btn-primary dropdown-toggle" dropdown-toggle ng-disabled="disabled">
+                Button dropdown <span class="caret"></span>
+              </button>
+            -->
+          </ul>
+        </div>
+      </nav>
 <!-- Render templates here -->
-     <div ui-view></div>
+    <div ui-view></div>
    </body>
 </html>
