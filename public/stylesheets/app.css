@@ -1,3 +1,4 @@
+/* test */
 html {
   height: 100%; }
 
@@ -23,7 +24,33 @@ body.landing {
 .hero-content h1 {
   font-size: 70px;
   margin-bottom: 50px;
-  font-weight: 300; }
+  font-weight: 300; 
+}
+.row {
+  height: 150px;
+  perspective: 600;
+  position: relative;
+  width: 150px;
+}
+.row{
+  height: 100%;
+  position: absolute;
+  transform-style: preserve-3d;
+  transition: all 1s ease-in-out;
+  width: 100%;
+}
+.row:hover {
+  transform: rotateY(180deg);
+}
+.row {
+  backface-visibility: hidden;
+  height: 100%;
+  position: absolute;
+  width: 100%;
+}
+.row.back {
+  transform: rotateY(180deg);
+}
 
 /*---------------------------------------*\
     #SELLING-POINTS-SECTION
@@ -391,6 +418,9 @@ PLAYER BAR CONTAINER
 
 .no-right-gutter {
   padding-right: 0px; }
+
+
+
 
 
 
