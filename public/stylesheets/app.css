@@ -99,6 +99,28 @@ body.landing {
   margin-bottom: 50px;
   font-weight: 300; }
 
+.row {
+  height: 150px;
+  perspective: 600;
+  position: relative;
+  width: 150px; }
+
+.albumCover {
+  transform-style: preserve-3d;
+  transition: all 1s ease-in-out; }
+
+.albumCover:hover {
+  transform: rotateY(180deg); }
+
+.row {
+  backface-visibility: hidden;
+  height: 100%;
+  position: absolute;
+  width: 100%; }
+
+.row.back {
+  transform: rotateY(180deg); }
+
 /*---------------------------------------*\
     #SELLING-POINTS-SECTION
 \*---------------------------------------*/
