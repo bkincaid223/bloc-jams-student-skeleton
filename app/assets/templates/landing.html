@@ -24,14 +24,15 @@
  
 <div class="landing-album-list container">
   <div class="row">
-    <div class="col-md-4 albumCover" ng-repeat="albumURL in albumURLs">
+    <div class="card-container" ng-repeat="albumURL in albumURLs">
       <img ng-src="{{albumURL}}">
     </div>
-    <!--<div class="card-container">
+      
+    <div class="card-container">
       <div class="card">
         <div class="side">Testing Side!</div>
         <div class="side back">Testing Side Back!</div>
       </div>
-    </div>-->
+    </div>
   </div>
 </div>
