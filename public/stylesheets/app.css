@@ -81,7 +81,7 @@ html {
 body {
   font-family: 'Open Sans';
   color: white;
-  min-height: absolute;
+  min-height: 100%;
   background: -webkit-radial-gradient(#2b1339, #380c77);
   background: radial-gradient(#2b1339, #380c77);
   padding-bottom: 150px; }

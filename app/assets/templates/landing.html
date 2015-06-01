@@ -6,7 +6,6 @@
  </div> 
  
  <div class='selling-points container slideInUp animated'> <!-- selling points -->
-   <div class='row'>
      <div class='point col-md-4'>
        <h5> Choose your music </h5>
        <p> The world is full of music, why should you have to listen to music that someone else chose? </p>
@@ -23,16 +22,10 @@
  </div>
  
 <div class="landing-album-list container">
-  <div class="row">
-    <div class="card-container" ng-repeat="albumURL in albumURLs">
-      <img ng-src="{{albumURL}}">
-    </div>
-      
-    <div class="card-container">
-      <div class="card">
-        <div class="side">Testing Side!</div>
-        <div class="side back">Testing Side Back!</div>
-      </div>
-    </div>
+    <div class="col-md-4 album" ng-repeat="albumURL in albumURLs">
+        <div class="album">
+    <div class="side"><img ng-src="{{albumURL}}"></div> 
+    <div class="side back">Album title goes here</div>
   </div>
 </div>
+  </div>
